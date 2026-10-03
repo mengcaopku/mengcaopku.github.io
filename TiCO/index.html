@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TiCO: Thinking with Images without Coordinates</title>
+  <meta name="description" content="TiCO is a coordinate-free thinking-with-images framework that grounds visual reasoning through semantic evidence discovery in visual token space.">
+  <meta name="theme-color" content="#f5f4ef">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="TiCO: Thinking with Images without Coordinates">
+  <meta property="og:description" content="Coordinate-free semantic evidence discovery for efficient high-resolution visual reasoning.">
+  <meta property="og:image" content="assets/img/teaser.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <script defer src="assets/js/main.js"></script>
+</head>
+<body id="top">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="page">
+  <header class="site-header col">
+    <a class="brand" href="#top">TiCO</a>
+    <nav class="site-nav" aria-label="Sections">
+      <a href="#method">Method</a>
+      <a href="#results">Results</a>
+      <a href="#more-results">More Results</a>
+      <a href="#citation">BibTeX</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="col title-block">
+      <p class="eyebrow">Coordinate-free visual reasoning</p>
+      <h1>Thinking with Images without Coordinates</h1>
+      <p class="authors">
+        Meng Cao<sup>1*</sup>, Haoze Zhao<sup>1*</sup>, Yi Wang<sup>2</sup>, Ian Reid<sup>1</sup>, Xiaodan Liang<sup>1,3</sup>
+      </p>
+      <p class="affiliations">
+        <sup>1</sup>Mohamed bin Zayed University of Artificial Intelligence,
+        <sup>2</sup>Shanghai AI Lab,
+        <sup>3</sup>Sun Yat-sen University
+      </p>
+      <div class="links">
+        <a class="btn muted-btn" href="#" aria-label="arXiv link placeholder">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v11m0 0l-4-4m4 4l4-4M5 19h14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>arXiv</span>
+        </a>
+        <a class="btn muted-btn" href="#" aria-label="GitHub link placeholder">
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.66 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.03 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+          <span>GitHub</span>
+        </a>
+      </div>
+    </section>
+
+    <figure class="col hero-figure paper-fig">
+      <button class="zoomable" type="button" data-zoom="assets/img/teaser.jpg" data-caption="Coordinate-based methods rely on explicit box prediction. TiCO grounds reasoning through latent semantic region indexing.">
+        <img src="assets/img/teaser.jpg" width="2451" height="1443" alt="Comparison between coordinate-based reasoning and TiCO coordinate-free evidence discovery.">
+      </button>
+    </figure>
+
+    <section class="col tldr">
+      <p><strong>TiCO</strong> replaces explicit coordinate prediction with semantic evidence discovery in visual token space. A probe token estimates task-relevant similarity over visual patches, connected components become evidence rollouts, and the model answers from semantically sampled regions instead of fragile numerical boxes.</p>
+    </section>
+
+    <section class="col kpis" aria-label="Key numbers">
+      <div class="kpi">
+        <div class="kpi-label">HR-Bench 4K</div>
+        <div class="kpi-value">78.0%</div>
+        <div class="kpi-note">overall accuracy</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">HR-Bench 8K</div>
+        <div class="kpi-value">76.3%</div>
+        <div class="kpi-note">best overall</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Generated tokens</div>
+        <div class="kpi-value">6.2</div>
+        <div class="kpi-note">vs. 527.7 for Mini-o3</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Inference time</div>
+        <div class="kpi-value">1.9s</div>
+        <div class="kpi-note">on HR-Bench 4K</div>
+      </div>
+    </section>
+
+    <section class="col sec-head" id="method">
+      <h2 class="section"><a class="anchor" href="#method" aria-label="Link to this section">#</a>How TiCO Works</h2>
+      <p class="sec-sub">Coordinate prediction is replaced by a semantic probe, token-level similarity maps, connected components, and distribution-guided evidence rollouts.</p>
+    </section>
+
+    <figure class="col paper-fig">
+      <button class="zoomable" type="button" data-zoom="assets/img/pipeline.jpg" data-caption="Overview of TiCO. A semantic probe token interacts with visual patch tokens, extracts connected evidence regions, and conditions answer rollouts.">
+        <img src="assets/img/pipeline.jpg" width="2539" height="995" loading="lazy" alt="Overview of the TiCO pipeline.">
+      </button>
+    </figure>
+
+    <section class="col stage-cards" aria-label="TiCO stages">
+      <article class="stage-card">
+        <div class="stage-top"><span class="stage-num">01</span><span class="stage-tag">Probe</span></div>
+        <h3>Semantic anchoring</h3>
+        <p>The model emits a dedicated <code>&lt;GROUND&gt;</code> token whose hidden state acts as a semantic anchor for task-relevant visual patches.</p>
+      </article>
+      <article class="stage-card">
+        <div class="stage-top"><span class="stage-num">02</span><span class="stage-tag">Evidence</span></div>
+        <h3>Region rollouts</h3>
+        <p>Patch similarities are thresholded into connected components and sampled by aggregated attention mass to preserve confident and diverse evidence.</p>
+      </article>
+      <article class="stage-card">
+        <div class="stage-top"><span class="stage-num">03</span><span class="stage-tag tag-hl">Answer</span></div>
+        <h3>Grounded reasoning</h3>
+        <p>Sampled evidence regions are fed back to the policy model, enabling interleaved visual reasoning without explicit coordinate regression.</p>
+      </article>
+    </section>
+
+    <section class="col sec-head" id="results">
+      <h2 class="section"><a class="anchor" href="#results" aria-label="Link to this section">#</a>Accuracy and Efficiency</h2>
+      <p class="sec-sub">TiCO improves high-resolution visual reasoning while sharply reducing the token and time overhead of coordinate-based thinking-with-images methods.</p>
+    </section>
+
+    <figure class="col paper-fig">
+      <button class="zoomable" type="button" data-zoom="assets/img/concept-compare.jpg" data-caption="Conceptual comparison and performance-efficiency trade-off between coordinate-based methods and TiCO.">
+        <img src="assets/img/concept-compare.jpg" width="1675" height="510" loading="lazy" alt="Coordinate-based methods versus coordinate-free TiCO and their performance efficiency comparison.">
+      </button>
+    </figure>
+
+    <section class="col result-grid" aria-label="Result summary">
+      <article class="result-card">
+        <h3>High-resolution reasoning</h3>
+        <p>On HR-Bench 4K, TiCO reaches <strong>78.0%</strong> overall accuracy, outperforming Mini-o3, DeepEyes, and TreeVGR. On HR-Bench 8K, it reaches <strong>76.3%</strong>.</p>
+      </article>
+      <article class="result-card">
+        <h3>General visual grounding</h3>
+        <p>TiCO obtains <strong>66.9%</strong> on MME-RealWorld and <strong>89.1%</strong> overall on POPE, improving grounded reasoning beyond the Qwen2.5-VL baseline.</p>
+      </article>
+      <article class="result-card">
+        <h3>Efficient inference</h3>
+        <p>On HR-Bench 4K, TiCO uses only <strong>6.2</strong> generated tokens and <strong>1.9s</strong> per query, compared with 527.7 tokens and 20.2s for Mini-o3.</p>
+      </article>
+    </section>
+
+    <section class="col sec-head" id="more-results">
+      <h2 class="section"><a class="anchor" href="#more-results" aria-label="Link to this section">#</a>More Results</h2>
+      <p class="sec-sub">Beyond the main benchmark numbers, we highlight the experiments that explain why coordinate-free grounding works: how supervision is built, how robust the evidence extractor is, and where the model succeeds or fails qualitatively.</p>
+    </section>
+
+    <section class="col experiment-stack" aria-label="Selected experiment details">
+      <article class="experiment-block">
+        <div class="experiment-copy sec-head-like">
+          <h2>Robustness study</h2>
+          <p>We perturb bounding-box supervision to test whether evidence extraction collapses under imperfect localization. TiCO remains stable because boundary noise affects only a subset of patch labels, while coordinate regression methods directly inherit numerical target noise.</p>
+        </div>
+        <figure class="paper-fig experiment-fig">
+          <button class="zoomable" type="button" data-zoom="assets/img/robustness.jpg" data-caption="Robustness and threshold analysis. TiCO remains stable under noisy box supervision and across threshold choices.">
+            <img src="assets/img/robustness.jpg" width="2324" height="768" loading="lazy" alt="Robustness and threshold analysis for TiCO.">
+          </button>
+        </figure>
+      </article>
+
+      <article class="experiment-block split">
+        <div class="experiment-copy sec-head-like">
+          <h2>Optimization dynamics</h2>
+          <p>The training curves show stable SFT convergence for grounding and language modeling losses, followed by RL improvements in both accuracy reward and format reward. The attention visualization illustrates how the semantic probe becomes more focused after reinforcement learning.</p>
+        </div>
+        <div class="split-figs">
+          <figure class="paper-fig experiment-fig">
+            <button class="zoomable" type="button" data-zoom="assets/img/training-dynamics.jpg" data-caption="Training dynamics for SFT and RL stages.">
+              <img src="assets/img/training-dynamics.jpg" width="3028" height="820" loading="lazy" alt="Training dynamics for TiCO.">
+            </button>
+          </figure>
+          <figure class="paper-fig experiment-fig tall-fig">
+            <button class="zoomable" type="button" data-zoom="assets/img/attention-sft-rl.jpg" data-caption="Attention visualization comparing SFT and RL stages.">
+              <img src="assets/img/attention-sft-rl.jpg" width="2038" height="2378" loading="lazy" alt="Attention visualization after SFT and RL.">
+            </button>
+          </figure>
+        </div>
+      </article>
+
+      <article class="experiment-block">
+        <div class="experiment-copy sec-head-like">
+          <h2>Qualitative comparison</h2>
+          <p>In high-resolution scenes, coordinate-based crop-and-zoom pipelines can lock onto the wrong region or lose context after a small localization error. TiCO samples semantic evidence directly from visual tokens, keeping the selected regions aligned with the question.</p>
+        </div>
+        <figure class="paper-fig experiment-fig">
+          <button class="zoomable" type="button" data-zoom="assets/img/vis-compare-1.jpg" data-caption="Qualitative visual comparison between TiCO and coordinate-based methods.">
+            <img src="assets/img/vis-compare-1.jpg" width="2470" height="1443" loading="lazy" alt="Qualitative visual comparison example.">
+          </button>
+        </figure>
+      </article>
+    </section>
+
+    <section class="col sec-head" id="citation">
+      <h2 class="section"><a class="anchor" href="#citation" aria-label="Link to this section">#</a>Citation</h2>
+      <p class="sec-sub">BibTeX will be updated when the public preprint is available.</p>
+    </section>
+
+    <section class="col bibtex">
+      <button class="copy" type="button" data-copy="#bibtex-code">Copy</button>
+      <pre><code id="bibtex-code">@article{tico2026thinking,
+  title   = {Thinking with Images without Coordinates},
+  author  = {Cao, Meng and Zhao, Haoze and Wang, Yi and Reid, Ian and Liang, Xiaodan},
+  journal = {arXiv preprint},
+  year    = {2026}
+}</code></pre>
+    </section>
+  </main>
+
+  <footer class="col footer">
+    <a class="brand small" href="#top">TiCO</a>
+    <span>Thinking with images, without coordinate regression.</span>
+  </footer>
+</div>
+
+<dialog id="lightbox" aria-label="Expanded figure">
+  <button class="lb-close" type="button" aria-label="Close">Close</button>
+  <img class="lb-img" alt="">
+  <p class="lb-caption"></p>
+</dialog>
+</body>
+</html>
