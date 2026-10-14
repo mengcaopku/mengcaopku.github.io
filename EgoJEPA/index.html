@@ -1,0 +1,423 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>EgoJEPA: Beyond Retargeting for Dexterous Manipulation from Egocentric Videos</title>
+  <meta name="description" content="EgoJEPA learns effect-aware latent actions from egocentric human videos and adapts them to dexterous hands and a gripper through lightweight action adapters, without rule-based retargeting.">
+  <meta name="theme-color" content="#f5f4ef">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="EgoJEPA: Beyond Retargeting for Dexterous Manipulation from Egocentric Videos">
+  <meta property="og:description" content="74% out-of-domain success vs. 65% for retargeting across five real-world tasks on three robots, with 47.2% less cumulative training time.">
+  <!-- Social previews need an absolute URL: replace with https://<user>.github.io/<repo>/assets/img/og-image.jpg after publishing. -->
+  <meta property="og:image" content="assets/img/og-image.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="preload" as="image" href="assets/posters/hero-reel.jpg">
+  <script defer src="assets/js/main.js"></script>
+  <script defer src="assets/js/charts.js"></script>
+</head>
+<body id="top">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="page">
+
+  <header class="site-header col">
+    <a class="brand" href="#top">EgoJEPA</a>
+    <nav class="site-nav" aria-label="Sections">
+      <a href="#videos">Videos</a>
+      <a href="#method">Method</a>
+      <a href="#results">Results</a>
+      <a href="#citation">BibTeX</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="col title-block">
+      <h1>EgoJEPA: Beyond Retargeting for Dexterous Manipulation from Egocentric Videos</h1>
+      <!-- Paste the real arXiv and GitHub URLs into the two href attributes below. -->
+      <div class="links">
+        <a class="btn" href="#" data-link="arxiv">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2.5h8.5L19 7v14.5H6z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M14.5 2.5V7H19M9 12h7M9 15.5h7M9 19h4.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          <span>arXiv</span>
+        </a>
+        <a class="btn" href="#" data-link="github">
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+          <span>GitHub</span>
+        </a>
+      </div>
+    </section>
+
+    <figure class="col hero" data-hero aria-label="Qualitative results on the five evaluation tasks">
+      <div class="hero-frame">
+        <video class="hero-video" data-autoplay muted loop playsinline preload="auto"
+               poster="assets/posters/hero-reel.jpg" src="assets/videos/hero-reel.mp4"
+               aria-label="Montage of the five evaluation tasks: cup stacking, zipper pulling and bottle cap unscrewing with the Wuji hand, toy grasping with the Sharpa hand, and cardboard box folding with the Xense Tac UMI gripper at 6× speed"></video>
+        <button class="hero-play" type="button" aria-label="Play video">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg>
+        </button>
+        <div class="hero-ui">
+          <span class="hero-chip"><span class="hero-dot" aria-hidden="true"></span><span class="hero-chip-text">Cup stacking · Wuji hand</span></span>
+          <div class="hero-segs">
+            <button class="hero-seg" type="button" style="flex-grow:6.75" data-start="0" data-end="6.75" data-label="Cup stacking · Wuji hand" aria-label="Jump to cup stacking"><span class="fill"></span></button>
+            <button class="hero-seg" type="button" style="flex-grow:6.5" data-start="6.75" data-end="13.25" data-label="Zipper pulling · Wuji hand" aria-label="Jump to zipper pulling"><span class="fill"></span></button>
+            <button class="hero-seg" type="button" style="flex-grow:6.5" data-start="13.25" data-end="19.75" data-label="Bottle cap unscrewing · Wuji hand" aria-label="Jump to bottle cap unscrewing"><span class="fill"></span></button>
+            <button class="hero-seg" type="button" style="flex-grow:6.5" data-start="19.75" data-end="26.25" data-label="Toy grasping · Sharpa hand" aria-label="Jump to toy grasping"><span class="fill"></span></button>
+            <button class="hero-seg" type="button" style="flex-grow:6.75" data-start="26.25" data-end="33" data-label="Cardboard box folding · gripper · 6×" aria-label="Jump to cardboard box folding"><span class="fill"></span></button>
+          </div>
+          <button class="hero-toggle" type="button" aria-label="Pause video">
+            <svg class="i-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z"/></svg>
+            <svg class="i-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg>
+          </button>
+        </div>
+      </div>
+    </figure>
+
+    <section class="col tldr">
+      <p>EgoJEPA transfers manipulation skills from egocentric human videos to robots <strong>without rule-based retargeting</strong>. It learns effect-aware latent actions from 20,000 hours of human video, models the world in terms of those latent actions, and adapts to each robot through lightweight action adapters.</p>
+    </section>
+
+    <section class="col kpis" aria-label="Key numbers">
+      <div class="kpi">
+        <div class="kpi-label">Out-of-domain success</div>
+        <div class="kpi-value">74%</div>
+        <div class="kpi-note">vs. 65% for retargeting</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">In-domain success</div>
+        <div class="kpi-value">94%</div>
+        <div class="kpi-note">vs. 80% for retargeting</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Cumulative training time</div>
+        <div class="kpi-value">−47.2%</div>
+        <div class="kpi-note">743.2 h → 392.7 h</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Human video</div>
+        <div class="kpi-value">20.1K h</div>
+        <div class="kpi-note">1.1M episodes</div>
+      </div>
+    </section>
+
+    <section class="col sec-head" id="videos">
+      <h2 class="section"><a class="anchor" href="#videos" aria-label="Link to this section">#</a>Five tasks, three robots</h2>
+      <p class="sec-sub">Two dexterous hands and a gripper. Success over 20 trials, in-domain and out-of-domain.</p>
+    </section>
+
+    <section class="rollouts" data-carousel aria-label="Robot videos">
+      <div class="track" tabindex="0" aria-label="Robot videos, scroll horizontally">
+        <article class="card" data-title="Toy grasping · Sharpa hand">
+          <div class="card-media">
+            <video data-autoplay muted loop playsinline preload="none" poster="assets/posters/toy-grasping-sharpa.jpg" data-src="assets/videos/toy-grasping-sharpa.mp4" aria-label="The Sharpa hand grasps a plush toy and drops it into a red basket"></video>
+            <button class="speed" type="button" data-rates="1,2">1×</button>
+            <button class="expand" type="button" aria-label="Open toy grasping video"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
+          </div>
+          <h3>Toy grasping <span class="robot">Sharpa hand</span></h3>
+          <p class="card-sr"><span>In-domain <b>100%</b></span><span>Out-of-domain <b>80%</b></span></p>
+        </article>
+        <article class="card" data-title="Cup stacking · Wuji hand">
+          <div class="card-media">
+            <video data-autoplay muted loop playsinline preload="none" poster="assets/posters/cup-stacking-wuji.jpg" data-src="assets/videos/cup-stacking-wuji.mp4" aria-label="Wuji hands arrange paper cups into a stack"></video>
+            <button class="speed" type="button" data-rates="1,2">1×</button>
+            <button class="expand" type="button" aria-label="Open cup stacking video"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
+          </div>
+          <h3>Cup stacking <span class="robot">Wuji hand</span></h3>
+          <p class="card-sr"><span>In-domain <b>95%</b></span><span>Out-of-domain <b>75%</b></span></p>
+        </article>
+        <article class="card" data-title="Zipper pulling · Wuji hand">
+          <div class="card-media">
+            <video data-autoplay muted loop playsinline preload="none" poster="assets/posters/zipper-pulling-wuji.jpg" data-src="assets/videos/zipper-pulling-wuji.mp4" aria-label="Wuji hands hold a pouch, pinch the zipper pull and slide it"></video>
+            <button class="speed" type="button" data-rates="1,2">1×</button>
+            <button class="expand" type="button" aria-label="Open zipper pulling video"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
+          </div>
+          <h3>Zipper pulling <span class="robot">Wuji hand</span></h3>
+          <p class="card-sr"><span>In-domain <b>95%</b></span><span>Out-of-domain <b>75%</b></span></p>
+        </article>
+        <article class="card" data-title="Bottle cap unscrewing · Wuji hand">
+          <div class="card-media">
+            <video data-autoplay muted loop playsinline preload="none" poster="assets/posters/bottle-cap-unscrewing-wuji.jpg" data-src="assets/videos/bottle-cap-unscrewing-wuji.mp4" aria-label="One Wuji hand holds a bottle while the other unscrews and removes the cap"></video>
+            <button class="speed" type="button" data-rates="1,2">1×</button>
+            <button class="expand" type="button" aria-label="Open bottle cap unscrewing video"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
+          </div>
+          <h3>Bottle cap unscrewing <span class="robot">Wuji hand</span></h3>
+          <p class="card-sr"><span>In-domain <b>90%</b></span><span>Out-of-domain <b>70%</b></span></p>
+        </article>
+        <article class="card" data-title="Cardboard box folding · Xense Tac UMI gripper">
+          <div class="card-media">
+            <video data-autoplay data-rate="4" muted loop playsinline preload="none" poster="assets/posters/box-folding-gripper.jpg" data-src="assets/videos/box-folding-gripper.mp4" aria-label="Two grippers fold a cardboard sheet into a box, place an item inside and close the lid"></video>
+            <button class="speed" type="button" data-rates="1,2,4,8">4×</button>
+            <button class="expand" type="button" aria-label="Open cardboard box folding video"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
+          </div>
+          <h3>Box folding <span class="robot">Xense Tac UMI gripper</span></h3>
+          <p class="card-sr"><span>In-domain <b>90%</b></span><span>Out-of-domain <b>70%</b></span></p>
+        </article>
+        <article class="card" data-title="Toy grasping · Wuji hand">
+          <div class="card-media">
+            <video data-autoplay muted loop playsinline preload="none" poster="assets/posters/toy-grasping-wuji.jpg" data-src="assets/videos/toy-grasping-wuji.mp4" aria-label="Wuji hands pick up a plush toy and place it in a red basket"></video>
+            <button class="speed" type="button" data-rates="1,2">1×</button>
+            <button class="expand" type="button" aria-label="Open Wuji toy grasping video"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
+          </div>
+          <h3>Toy grasping <span class="robot">Wuji hand</span></h3>
+          <p class="card-sr"><span class="muted">Additional video</span></p>
+        </article>
+      </div>
+      <div class="rollouts-foot">
+        <div class="car-nav">
+          <button class="car-btn" type="button" data-prev aria-label="Previous videos"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+          <button class="car-btn" type="button" data-next aria-label="Next videos"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+        </div>
+        <p class="caption">Box folding plays at 4×. Click a video to enlarge.</p>
+      </div>
+    </section>
+
+    <section class="col sec-head" id="method">
+      <h2 class="section"><a class="anchor" href="#method" aria-label="Link to this section">#</a>How it works</h2>
+      <p class="sec-sub">Stages 1–2 learn from human video only and are shared by every robot. Only Stage 3 uses robot data.</p>
+    </section>
+
+    <figure class="col paper-fig" id="fig-method">
+      <button class="zoomable" type="button" data-zoom="assets/img/method-overview.jpg" data-caption="Overview of the EgoJEPA framework (Figure 2 of the paper)" aria-label="Enlarge the method overview figure">
+        <img src="assets/img/method-overview.jpg" width="2320" height="999" loading="lazy"
+             alt="EgoJEPA overview. Left, Stage 1: context frames go through the context encoder E_θ, the hand-motion differences Δm through the action encoder A_ψ, and the predictor P_ϕ predicts ẑ_(t+H), matched to the target encoder's embedding of frame o_(t+H) under a stop-gradient. Right, Stages 2 and 3: a text encoder passes the instruction 'Nest the three paper cups into a single stack' by cross-attention into the world-action model W_ω, made of a video Transformer and an action Transformer; Adapter-In and Adapter-Out D_η are added for Stage 3 only.">
+      </button>
+    </figure>
+
+    <section class="col stage-cards" aria-label="The three stages">
+      <article class="stage-card">
+        <div class="stage-top"><span class="stage-num">Stage 1</span><span class="stage-tag">Human video</span></div>
+        <h3>Human-action pre-training</h3>
+        <p>Predicts how the scene changes from hand motion, learning effect-aware latent actions.</p>
+      </article>
+      <article class="stage-card">
+        <div class="stage-top"><span class="stage-num">Stage 2</span><span class="stage-tag">Human video</span></div>
+        <h3>Latent-action world modeling</h3>
+        <p>Jointly predicts future video and latent actions with flow matching.</p>
+      </article>
+      <article class="stage-card">
+        <div class="stage-top"><span class="stage-num">Stage 3</span><span class="stage-tag tag-hl">Robot data</span></div>
+        <h3>Embodiment-specific tuning</h3>
+        <p>Lightweight adapters map each robot's actions to the shared latent action space.</p>
+      </article>
+    </section>
+
+    <section class="col sec-head" id="data">
+      <h2 class="section"><a class="anchor" href="#data" aria-label="Link to this section">#</a>Learning from 20,000 hours of human video</h2>
+      <p class="sec-sub">Egocentric video with wrist poses and 21 3D keypoints per hand.</p>
+    </section>
+
+    <section class="col data-block" aria-label="Human pre-training data">
+      <div class="stat-strip">
+        <div class="stat"><div class="stat-value">20,106.6 h</div><div class="stat-label">of video</div></div>
+        <div class="stat"><div class="stat-value">1,111,943</div><div class="stat-label">episodes</div></div>
+        <div class="stat"><div class="stat-value">64,686</div><div class="stat-label">task instructions</div></div>
+        <div class="stat"><div class="stat-value">608</div><div class="stat-label">scene labels</div></div>
+      </div>
+      <div class="grid4">
+        <button class="zoomable" type="button" data-zoom="assets/img/human-data-a.jpg" data-caption="Egocentric human video with hand annotations (Figure A3a)" aria-label="Enlarge example a"><img src="assets/img/human-data-a.jpg" width="1532" height="424" loading="lazy" alt="Four frames of a person folding a striped towel on a wooden table, with left-hand keypoints in blue and right-hand keypoints in pink, and enlarged crops of each hand"></button>
+        <button class="zoomable" type="button" data-zoom="assets/img/human-data-b.jpg" data-caption="Egocentric human video with hand annotations (Figure A3b)" aria-label="Enlarge example b"><img src="assets/img/human-data-b.jpg" width="1532" height="424" loading="lazy" alt="Four frames of hands working with colored paper at a desk, with left-hand keypoints in blue and right-hand keypoints in pink, and enlarged crops of each hand"></button>
+        <button class="zoomable" type="button" data-zoom="assets/img/human-data-c.jpg" data-caption="Egocentric human video with hand annotations (Figure A3c)" aria-label="Enlarge example c"><img src="assets/img/human-data-c.jpg" width="1532" height="424" loading="lazy" alt="Four frames of hands preparing food on a kitchen counter with tongs, with left-hand keypoints in blue and right-hand keypoints in pink, and enlarged crops of each hand"></button>
+        <button class="zoomable" type="button" data-zoom="assets/img/human-data-d.jpg" data-caption="Egocentric human video with hand annotations (Figure A3d)" aria-label="Enlarge example d"><img src="assets/img/human-data-d.jpg" width="1532" height="424" loading="lazy" alt="Four frames of hands handling containers outdoors on a brick surface, with left-hand keypoints in blue and right-hand keypoints in pink, and enlarged crops of each hand"></button>
+      </div>
+      <p class="caption">Blue: left hand. Pink: right hand.</p>
+    </section>
+
+    <section class="col sec-head" id="results">
+      <h2 class="section"><a class="anchor" href="#results" aria-label="Link to this section">#</a>Results</h2>
+    </section>
+
+    <figure class="col viz" id="viz-results" aria-labelledby="viz-results-title">
+      <div class="viz-head">
+        <div>
+          <p class="viz-title" id="viz-results-title">Highest success on all five tasks</p>
+          <p class="viz-sub">20 trials per task. Out-of-domain: unseen objects and placements.</p>
+        </div>
+        <div class="legend" aria-hidden="true">
+          <span class="lg"><span class="lg-dot filled"></span>Out-of-domain</span>
+          <span class="lg"><span class="lg-dot ring"></span>In-domain</span>
+        </div>
+      </div>
+      <div class="viz-controls" role="group" aria-label="Choose a task">
+        <button type="button" class="seg-btn" data-task="5" aria-pressed="true">Average</button>
+        <button type="button" class="seg-btn" data-task="0" aria-pressed="false">Toy grasping</button>
+        <button type="button" class="seg-btn" data-task="1" aria-pressed="false">Cup stacking</button>
+        <button type="button" class="seg-btn" data-task="2" aria-pressed="false">Zipper pulling</button>
+        <button type="button" class="seg-btn" data-task="3" aria-pressed="false">Bottle cap</button>
+        <button type="button" class="seg-btn" data-task="4" aria-pressed="false">Box folding</button>
+      </div>
+      <div class="viz-plot" data-chart="results" role="img" aria-label="Dumbbell chart of in-domain and out-of-domain success per method. On average EgoJEPA reaches 94% in-domain and 74% out-of-domain, the retargeting pipeline 80% and 65%, DexWild 51% and 40%, LAPA 23% and 19%, EgoJEPA with VQ-VAE 74% and 63%, and EgoJEPA robot-only 51% and 40%."></div>
+      <div class="viz-foot">
+        <button type="button" class="table-toggle" aria-expanded="false" aria-controls="tbl-results">Show data table</button>
+      </div>
+      <div class="viz-table" id="tbl-results" hidden>
+        <div class="table-scroll">
+          <table class="table compact">
+            <caption class="sr-only">Success rate (%) in-domain / out-of-domain, 20 trials each</caption>
+            <thead><tr><th scope="col">Method</th><th scope="col" class="num">Toy</th><th scope="col" class="num">Cup</th><th scope="col" class="num">Zipper</th><th scope="col" class="num">Bottle cap</th><th scope="col" class="num">Box</th><th scope="col" class="num">Average</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">LAPA</th><td class="num">30 / 30</td><td class="num">25 / 20</td><td class="num">25 / 15</td><td class="num">25 / 20</td><td class="num">10 / 10</td><td class="num">23 / 19</td></tr>
+              <tr><th scope="row">DexWild</th><td class="num">65 / 50</td><td class="num">60 / 50</td><td class="num">45 / 35</td><td class="num">45 / 35</td><td class="num">40 / 30</td><td class="num">51 / 40</td></tr>
+              <tr><th scope="row">Retargeting pipeline</th><td class="num">85 / 70</td><td class="num">85 / 70</td><td class="num">80 / 65</td><td class="num">75 / 60</td><td class="num">75 / 60</td><td class="num">80 / 65</td></tr>
+              <tr><th scope="row">EgoJEPA (Robot-only)</th><td class="num">60 / 50</td><td class="num">55 / 45</td><td class="num">50 / 40</td><td class="num">45 / 30</td><td class="num">45 / 35</td><td class="num">51 / 40</td></tr>
+              <tr><th scope="row">EgoJEPA (VQ-VAE)</th><td class="num">75 / 65</td><td class="num">80 / 70</td><td class="num">80 / 70</td><td class="num">70 / 55</td><td class="num">65 / 55</td><td class="num">74 / 63</td></tr>
+              <tr class="row-hl"><th scope="row">EgoJEPA</th><td class="num"><b>100 / 80</b></td><td class="num"><b>95 / 75</b></td><td class="num"><b>95 / 75</b></td><td class="num"><b>90 / 70</b></td><td class="num"><b>90 / 70</b></td><td class="num"><b>94 / 74</b></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="table-note">In-domain / out-of-domain success (%), Figure 3 of the paper. Hover a row in the chart to see what each method is.</p>
+      </div>
+    </figure>
+
+    <figure class="col viz" id="viz-efficiency" aria-labelledby="viz-eff-title">
+      <div class="viz-head">
+        <div>
+          <p class="viz-title" id="viz-eff-title">Less robot data needed</p>
+          <p class="viz-sub">Bottle cap unscrewing, out-of-domain, by share of robot demonstrations</p>
+        </div>
+        <div class="legend" aria-hidden="true">
+          <span class="lg"><span class="lg-line" style="--c:#6a4f94"></span>EgoJEPA</span>
+          <span class="lg"><span class="lg-line" style="--c:#eb6834"></span>Retargeting</span>
+          <span class="lg"><span class="lg-line" style="--c:#8a877f"></span>Robot-only</span>
+        </div>
+      </div>
+      <div class="viz-plot" data-chart="data-efficiency" tabindex="0" role="img" aria-label="Line chart. With 10, 25, 50 and 100 percent of the robot demonstrations, EgoJEPA reaches 35, 55, 65 and 70 percent success, the retargeting pipeline 30, 50, 55 and 60 percent, and robot-only training 10, 15, 15 and 30 percent."></div>
+      <div class="viz-foot">
+        <button type="button" class="table-toggle" aria-expanded="false" aria-controls="tbl-eff">Show data table</button>
+      </div>
+      <div class="viz-table" id="tbl-eff" hidden>
+        <div class="table-scroll">
+          <table class="table compact">
+            <caption class="sr-only">Success rate (%) by fraction of robot demonstrations</caption>
+            <thead><tr><th scope="col">Robot data</th><th scope="col" class="num">10%</th><th scope="col" class="num">25%</th><th scope="col" class="num">50%</th><th scope="col" class="num">100%</th></tr></thead>
+            <tbody>
+              <tr class="row-hl"><th scope="row">EgoJEPA</th><td class="num">35</td><td class="num">55</td><td class="num">65</td><td class="num">70</td></tr>
+              <tr><th scope="row">Retargeting pipeline</th><td class="num">30</td><td class="num">50</td><td class="num">55</td><td class="num">60</td></tr>
+              <tr><th scope="row">EgoJEPA (Robot-only)</th><td class="num">10</td><td class="num">15</td><td class="num">15</td><td class="num">30</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="table-note">Read from Figure 5 (right) of the paper.</p>
+      </div>
+      <figcaption class="caption">With 10% of the demos, EgoJEPA (35%) already beats robot-only training on all of them (30%). Bands: 95% Wilson intervals.</figcaption>
+    </figure>
+
+    <figure class="col viz" id="viz-robust" aria-labelledby="viz-robust-title">
+      <div class="viz-head">
+        <div>
+          <p class="viz-title" id="viz-robust-title">Robust to noisy human annotations</p>
+          <p class="viz-sub">Bottle cap unscrewing, out-of-domain; noise added to the human annotations of Stages 1–2</p>
+        </div>
+        <div class="legend" aria-hidden="true">
+          <span class="lg"><span class="lg-line" style="--c:#6a4f94"></span>EgoJEPA</span>
+          <span class="lg"><span class="lg-line" style="--c:#eb6834"></span>Retargeting</span>
+        </div>
+      </div>
+      <div class="multiples">
+        <div class="viz-plot" data-chart="robust-noise" tabindex="0" role="img" aria-label="Position noise: at sigma 0, 2, 5 and 10 millimetres, EgoJEPA succeeds 70, 70, 70 and 60 percent of the time, retargeting 60, 50, 40 and 30 percent."></div>
+        <div class="viz-plot" data-chart="robust-offset" tabindex="0" role="img" aria-label="Temporal jitter: at maximum offsets of 0, 3, 6 and 12 frames, EgoJEPA succeeds 70, 65, 65 and 50 percent of the time, retargeting 60, 45, 35 and 25 percent."></div>
+        <div class="viz-plot" data-chart="robust-missing" tabindex="0" role="img" aria-label="Annotation dropout: with 0, 10, 20 and 40 percent of frames missing, EgoJEPA succeeds 70, 70, 70 and 65 percent of the time, retargeting 60, 50, 45 and 45 percent."></div>
+      </div>
+      <div class="viz-foot">
+        <button type="button" class="table-toggle" aria-expanded="false" aria-controls="tbl-robust">Show data table</button>
+      </div>
+      <div class="viz-table" id="tbl-robust" hidden>
+        <div class="table-scroll">
+          <table class="table compact">
+            <caption class="sr-only">Success rate (%) under annotation perturbations, EgoJEPA / retargeting</caption>
+            <thead><tr><th scope="col">Perturbation</th><th scope="col" class="num">Level 0</th><th scope="col" class="num">Level 1</th><th scope="col" class="num">Level 2</th><th scope="col" class="num">Level 3</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">Position noise σ (mm)</th><td class="num">0: 70 / 60</td><td class="num">2: 70 / 50</td><td class="num">5: 70 / 40</td><td class="num">10: 60 / 30</td></tr>
+              <tr><th scope="row">Max. temporal offset δ (frames)</th><td class="num">0: 70 / 60</td><td class="num">3: 65 / 45</td><td class="num">6: 65 / 35</td><td class="num">12: 50 / 25</td></tr>
+              <tr><th scope="row">Missing annotations p (%)</th><td class="num">0: 70 / 60</td><td class="num">10: 70 / 50</td><td class="num">20: 70 / 45</td><td class="num">40: 65 / 45</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="table-note">Perturbation level: EgoJEPA / retargeting success (%), read from Figure 6 of the paper.</p>
+      </div>
+      <figcaption class="caption">At σ = 10 mm position noise, EgoJEPA loses 10 points and retargeting loses 30. Bands: 95% Wilson intervals.</figcaption>
+    </figure>
+
+    <figure class="col viz" id="viz-cost" aria-labelledby="viz-cost-title">
+      <div class="viz-head">
+        <div>
+          <p class="viz-title" id="viz-cost-title">One pre-training, many robots</p>
+          <p class="viz-sub">Wall-clock training hours as tasks and robots are added</p>
+        </div>
+        <div class="legend legend-stages" aria-hidden="true">
+          <span class="lg"><span class="lg-sq" style="background:#7e5fb8"></span>Human-action pre-training</span>
+          <span class="lg"><span class="lg-sq" style="background:#4f8ccc"></span>Human–robot calibration</span>
+          <span class="lg"><span class="lg-sq" style="background:#d9708f"></span>World-model pre-training</span>
+          <span class="lg"><span class="lg-sq" style="background:#e3a83a"></span>Robot tuning</span>
+        </div>
+      </div>
+      <div class="cost-grid">
+        <div class="viz-plot" data-chart="cost-bars" role="img" aria-label="Stacked bars of training hours per task. Toy grasping on the Sharpa hand: EgoJEPA 173.5 hours (15.8 human-action pre-training, 112.2 world modeling, 45.5 tuning), retargeting 206.8 hours (52.1 calibration, 109.2 pre-training, 45.5 tuning). Cup stacking on the Wuji hand: EgoJEPA 51.0 hours of tuning, retargeting 212.3 hours. Zipper pulling: both 60.2 hours. Bottle cap unscrewing: both 70.5 hours. Cardboard box folding on the gripper: EgoJEPA 37.5 hours, retargeting 193.4 hours."></div>
+        <div class="viz-plot" data-chart="cost-cumulative" tabindex="0" role="img" aria-label="Cumulative training hours after each task: EgoJEPA 173.5, 224.5, 284.7, 355.2 and 392.7 hours; retargeting 206.8, 419.1, 479.3, 549.8 and 743.2 hours."></div>
+      </div>
+      <div class="viz-foot">
+        <button type="button" class="table-toggle" aria-expanded="false" aria-controls="tbl-cost">Show data table</button>
+      </div>
+      <div class="viz-table" id="tbl-cost" hidden>
+        <div class="table-scroll">
+          <table class="table compact">
+            <caption class="sr-only">Wall-clock training hours by stage</caption>
+            <thead><tr><th scope="col">Task (robot)</th><th scope="col">Method</th><th scope="col" class="num">Stage 1</th><th scope="col" class="num">Stage 2</th><th scope="col" class="num">Stage 3</th><th scope="col" class="num">Total</th><th scope="col" class="num">Cumulative</th></tr></thead>
+            <tbody>
+              <tr><th scope="row" rowspan="2">Toy grasping (Sharpa)</th><td>EgoJEPA</td><td class="num">15.8</td><td class="num">112.2</td><td class="num">45.5</td><td class="num">173.5</td><td class="num">173.5</td></tr>
+              <tr><td>Retargeting</td><td class="num">52.1</td><td class="num">109.2</td><td class="num">45.5</td><td class="num">206.8</td><td class="num">206.8</td></tr>
+              <tr><th scope="row" rowspan="2">Cup stacking (Wuji)</th><td>EgoJEPA</td><td class="num">reused</td><td class="num">reused</td><td class="num">51.0</td><td class="num">51.0</td><td class="num">224.5</td></tr>
+              <tr><td>Retargeting</td><td class="num">52.1</td><td class="num">109.2</td><td class="num">51.0</td><td class="num">212.3</td><td class="num">419.1</td></tr>
+              <tr><th scope="row" rowspan="2">Zipper pulling (Wuji)</th><td>EgoJEPA</td><td class="num">reused</td><td class="num">reused</td><td class="num">60.2</td><td class="num">60.2</td><td class="num">284.7</td></tr>
+              <tr><td>Retargeting</td><td class="num">reused</td><td class="num">reused</td><td class="num">60.2</td><td class="num">60.2</td><td class="num">479.3</td></tr>
+              <tr><th scope="row" rowspan="2">Bottle cap unscrewing (Wuji)</th><td>EgoJEPA</td><td class="num">reused</td><td class="num">reused</td><td class="num">70.5</td><td class="num">70.5</td><td class="num">355.2</td></tr>
+              <tr><td>Retargeting</td><td class="num">reused</td><td class="num">reused</td><td class="num">70.5</td><td class="num">70.5</td><td class="num">549.8</td></tr>
+              <tr><th scope="row" rowspan="2">Cardboard box folding (Gripper)</th><td>EgoJEPA</td><td class="num">reused</td><td class="num">reused</td><td class="num">37.5</td><td class="num">37.5</td><td class="num">392.7</td></tr>
+              <tr><td>Retargeting</td><td class="num">46.7</td><td class="num">109.2</td><td class="num">37.5</td><td class="num">193.4</td><td class="num">743.2</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="table-note">From Figures 1 and 7 of the paper. Retargeting's calibration runs on CPUs, so times are wall-clock hours.</p>
+      </div>
+      <figcaption class="caption">EgoJEPA reuses Stages 1–2 for every new robot: 392.7 h in total vs. 743.2 h for retargeting.</figcaption>
+    </figure>
+
+    <section class="col" id="citation">
+      <h2 class="section"><a class="anchor" href="#citation" aria-label="Link to this section">#</a>BibTeX</h2>
+      <div class="bibtex">
+        <button type="button" class="copy-btn" data-copy="#bibtex-code">Copy</button>
+<pre><code id="bibtex-code">@inproceedings{anonymous2027egojepa,
+  title     = {{EgoJEPA}: Beyond Retargeting for Dexterous Manipulation
+               from Egocentric Videos},
+  author    = {Anonymous},
+  booktitle = {Submitted to the International Conference on
+               Learning Representations (ICLR)},
+  year      = {2027},
+  note      = {Under review}
+}</code></pre>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer col">
+    <span class="brand small">EgoJEPA</span>
+    <a class="foot-top" href="#top">Back to top ↑</a>
+  </footer>
+</div>
+
+<dialog class="lightbox" id="lightbox" aria-label="Media viewer">
+  <div class="lb-inner">
+    <div class="lb-head">
+      <p class="lb-caption"></p>
+      <button type="button" class="lb-close" aria-label="Close">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </div>
+    <video controls playsinline muted loop></video>
+    <img class="lb-img" alt="" hidden>
+  </div>
+</dialog>
+</body>
+</html>
